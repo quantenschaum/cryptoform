@@ -17,10 +17,10 @@ an end-to-end encrypted webform using PGP encryption
   - the data file containing the serialized form data and all attached files are zipped together into a *single* zip file using [JSZip](https://stuk.github.io/jszip/) (in memory, nothing is uploaded yet)
   - the zip file is encrypted using [kbpgp.js](https://keybase.io/kbpgp) or [openpgp.js](https://github.com/openpgpjs/openpgpjs) to one (or more) public PGP keys
   - the zip file is discarded and the encrypted zip file is transmitted to the server
-  - the server might now forward the encrypted zip via email
+  - the server might now forward the encrypted zip via email or make it available for download somewhere
   - the receiver can decrypt the zip, if (and only if) in possesion of a matching private key
 
-This should ensure end-to-end encryption. The security of participating servers and the connections between them should be irrelevant. The data is (strongly) encrypted and can safely be transmitted via unsecure connections. To prevent forgery, the form and the JavaScript code performing the encryption as well as the public PGP key **must be delivered via a secure (https) connection with headers set correctly to prevent cross site scripting**!
+This should ensure end-to-end encryption. The security of participating servers and the connections between them should be irrelevant. The data is encrypted (strongly, depending on the keys used) and can safely be transmitted via unsecure connections. To prevent forgery, the form and the JavaScript code performing the encryption as well as the public PGP key **must be delivered via a secure (https) connection with headers set correctly to prevent cross site scripting**!
 
 - The data is encrypted in the clients browser, no unencrypted data is transmitted.
 - Using asymmetric cryptography ensures that only authorized persons can decrypt the data (assuming the private key beeing kept private).
@@ -34,7 +34,7 @@ This should ensure end-to-end encryption. The security of participating servers 
 - a web based decrypter could be created
   - decryption happens in the browser using JavaScript, no data transmitted
   - drop the encrypted zip and your private key
-  - "download" the decrypted zip
+  - download the decrypted zip (it is not actually downloaded, but retrieved from the browsers memory)
 
 
 ## used software/libraries
