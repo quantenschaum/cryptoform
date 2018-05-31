@@ -13,12 +13,12 @@ an end-to-end encrypted webform using PGP encryption
 - a HTML form is displayed in the webbrowser containing several fields, textareas, file uploads
 - the user fills in the form
 - when the user submits the from, the following happens
-- all entered data from fields and textareas is written into a text file (like JQuery's [serialize()](https://api.jquery.com/serialize/) in memory, json/yaml/xml encoded)
-- the data file containing the serialized form data and all attached files are zipped together into a *single* zip file using [JSZip](https://stuk.github.io/jszip/) (in memory, nothing is uploaded yet)
-- the zip file is encrypted using [kbpgp.js](https://keybase.io/kbpgp) or [openpgp.js](https://github.com/openpgpjs/openpgpjs) to one (or more) public PGP keys
-- the zip file is discarded and the encrypted zip file is transmitted to the server
-- the server might now forward the encrypted zip via email
-- the receiver can decrypt the zip, if (and only if) in possesion of a matching private key
+  - all entered data from fields and textareas is written into a text file (like JQuery's [serialize()](https://api.jquery.com/serialize/) in memory, json/yaml/xml encoded)
+  - the data file containing the serialized form data and all attached files are zipped together into a *single* zip file using [JSZip](https://stuk.github.io/jszip/) (in memory, nothing is uploaded yet)
+  - the zip file is encrypted using [kbpgp.js](https://keybase.io/kbpgp) or [openpgp.js](https://github.com/openpgpjs/openpgpjs) to one (or more) public PGP keys
+  - the zip file is discarded and the encrypted zip file is transmitted to the server
+  - the server might now forward the encrypted zip via email
+  - the receiver can decrypt the zip, if (and only if) in possesion of a matching private key
 
 This should ensure end-to-end encryption. The security of participating servers and the connections between them should be irrelevant. The data is (strongly) encrypted and can safely be transmitted via unsecure connections. To prevent forgery, the form and the JavaScript code performing the encryption as well as the public PGP key **must be delivered via a secure (https) connection with headers set correctly to prevent cross site scripting**!
 
@@ -35,7 +35,7 @@ This should ensure end-to-end encryption. The security of participating servers 
   - decryption happens in the browser using JavaScript, no data transmitted
   - drop the encrypted zip and your private key
   - "download" the decrypted zip
-  
+
 
 ## used software/libraries
 
@@ -62,4 +62,3 @@ generated with https://fncontact.com/pgpkeys
 - get prototype running
 - build a library
 - build a wordpress plugin
-
