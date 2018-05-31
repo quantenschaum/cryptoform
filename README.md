@@ -20,6 +20,8 @@ an end-to-end encrypted webform using PGP encryption
   - the server might now forward the encrypted zip via email or make it available for download somewhere
   - the receiver can decrypt the zip, if (and only if) in possesion of a matching private key
 
+The entire process of encryption is transparent to the user and does not require any special knowlegde or interaction. For the users point of view, there is no difference to filling in a non-encrypted form.
+
 This should ensure end-to-end encryption. The security of participating servers and the connections between them should be irrelevant. The data is encrypted (strongly, depending on the keys used) and can safely be transmitted via unsecure connections. To prevent forgery, the form and the JavaScript code performing the encryption as well as the public PGP key **must be delivered via a secure (https) connection with headers set correctly to prevent cross site scripting**!
 
 - The data is encrypted in the clients browser, no unencrypted data is transmitted.
