@@ -52,6 +52,8 @@ This should ensure end-to-end encryption. The security of participating servers 
 ## good to know - reading
 
 - https://www.html5rocks.com/de/tutorials/file/dndfiles/
+- https://yarnpkg.com/ + https://webpack.js.org/
+
 
 
 ## key pairs
