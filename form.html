@@ -22,7 +22,6 @@
       <option value="audi">Audi</option>
     </select></label><br />
     <label>message:<br /><textarea id="output" name="message" rows="20" cols="80"></textarea></label><br />
-    <label>files: <input type="file" /></label><br />
     <label>files: <input type="file" multiple /></label><br />
     <input type="reset" value="reset" /><input type="submit" value="encrypt" />
   </form>
@@ -30,7 +29,7 @@
   <script src="jquery.js"></script>
   <script src="kbpgp.js"></script>
   <script type="text/javascript">
-    var key =
+    var public_key =
       `-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: fnContact PGP / Keybase OpenPGP v1.0.0
 Comment: https://fncontact.com
@@ -95,27 +94,32 @@ g2XxGGMz0YdYGP6ZKSaoBSPTJqNXkOtmmQ/6Fj/GRgClIq8jEofWRjxmvBUbkxBi
                   reject("could not load " + r.filename + " error " + r.error);
                 }
               };
-              reader.readAsArrayBuffer(f);
-              //reader.readAsBinaryString(f);
+              reader.readAsBinaryString(f);
             }));
 
           }
         });
 
-        Promise.all(readers).then(function(value) {
-          console.log("DONE", value);
+        Promise.all(readers).then(function(files) {
+          console.log("files loaded", files);
 
           // encrypt form data
           kbpgp.KeyManager.import_from_armored_pgp({
-            armored: key
-          }, function(err, keyman) {
+            armored: public_key
+          }, function(err, recipient) {
             if (err) {
               alert("Failed to load encryption key!");
             } else {
-              console.log("Key loaded!");
+              console.log("encrypting...");
+              var my_asp = new kbpgp.ASP({
+                progress_hook: function(o) {
+                  console.log(o);
+                }
+              });
               kbpgp.box({
-                msg: output.val(),
-                encrypt_for: keyman
+                asp: my_asp,
+                msg: new kbpgp.Buffer(files[0].result), //output.val(),
+                encrypt_for: recipient
               }, function(err, result_string, result_buffer) {
                 if (err) {
                   alert("Encrytion failed!");
